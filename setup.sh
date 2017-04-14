@@ -1,9 +1,9 @@
 #!/bin/bash
 
-conda create -n janome_env --copy -y -q python=2
+conda create -n mecab_env --copy -c chezou -y -q python=2 mecab
 
-source activate janome_env
-pip install janome
-cp -r .local/lib .conda/envs/janome_env/
+source activate mecab_env
+#pip install janome
+#cp -r .local/lib .conda/envs/mecab_env/
 cd .conda/envs
-zip -r ../../janome_env.zip janome_env
+zip -r ../../mecab_env.zip mecab_env

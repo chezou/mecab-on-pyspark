@@ -2,10 +2,9 @@
 from pyspark.sql import SparkSession
 
 def word_tokenize(x):
-  from janome.tokenizer import Tokenizer
-  t = Tokenizer()
-  tokens = t.tokenize(x.decode('utf-8'))
-  return ' '.join([token.surface for token in tokens])  
+  import MeCab as mc
+  t = mc.Tagger("-Owakati -d ./MECAB/mecab_env/lib/mecab/dic/ipadic")
+  return t.parse(x)
 
 
 spark = SparkSession.builder \
