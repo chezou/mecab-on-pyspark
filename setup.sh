@@ -8,7 +8,12 @@ source activate mecab_env
 cd .conda/envs
 zip -r ../../mecab_env.zip mecab_env
 
+
+wget https://noto-website.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
+unzip -d ~/.font NotoSansCJKjp-hinted.zip
+
 wget  http://www.genpaku.org/alice01/alice01j.txt -P /tmp
-hdfs dfs -put /tmp/alice01j.txt /tmp/
+iconv -f SJIS -t UTF8 /tmp/alice01j.txt > /tmp/alice01j_utf8.txt
+hdfs dfs -put /tmp/alice01j_utf8.txt /tmp/
 mkdir -p resources
 wget "http://www.stencilry.org/stencils/movies/alice%20in%20wonderland/255fk.jpg?p=*full-image" -O resources/alice-mask.jpg

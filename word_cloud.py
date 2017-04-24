@@ -7,7 +7,9 @@ from wordcloud import WordCloud, STOPWORDS
 def word_tokenize(x):
   import MeCab as mc
   t = mc.Tagger("-Owakati  -d ./MECAB/mecab_env/lib/mecab/dic/ipadic -r ./MECAB/mecab_env/etc/mecabrc")
-  return t.parse(x)
+  
+  return t.parse(x.encode('utf-8'))
+
 
 spark = SparkSession.builder \
       .appName("Word count") \
@@ -19,14 +21,14 @@ threshold = 5
 # Written by: Lewis Carroll
 # Translated by: Hiroo Yamagata
 
-text_file = spark.sparkContext.textFile("/tmp/alice01j.txt")
+text_file = spark.sparkContext.textFile("/tmp/alice01j_utf8.txt")
 
 stopwords = set(STOPWORDS)
 
-counts = text_file.map(word_tokenize) \
+counts = text_file.map(lambda line: word_tokenize(line)) \
              .flatMap(lambda line: line.split(" ")) \
-             .filter(lambda word: word not in stopwords) \
-             .map(lambda word: (word.lower(), 1)) \
+             .filter(lambda word: len(word.decode('utf-8')) >= 3) \
+             .map(lambda word: (word.decode('utf-8'), 1)) \
              .reduceByKey(lambda a, b: a + b)
 
 from pyspark.sql.types import *
@@ -45,7 +47,9 @@ import matplotlib.pyplot as plt
 
 alice_mask = np.array(Image.open(path.join("resources", "alice-mask.jpg")))
 
-wc = WordCloud(background_color="white", max_words=2000, mask=alice_mask,
+FONT_PATH="/home/sense/.font/NotoSansCJKjp-Regular.otf"
+wc = WordCloud(font_path=FONT_PATH,
+               background_color="white", max_words=2000, mask=alice_mask,
                stopwords=stopwords)
 wc.generate_from_frequencies(dict(*frequencies))
 
