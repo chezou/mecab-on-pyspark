@@ -6,7 +6,7 @@ from wordcloud import WordCloud, STOPWORDS
 
 def word_tokenize(x):
   import MeCab as mc
-  t = mc.Tagger("-Owakati -d ./MECAB/mecab_env/lib/mecab/dic/ipadic")
+  t = mc.Tagger("-Owakati  -d ./MECAB/mecab_env/lib/mecab/dic/ipadic -r ./MECAB/mecab_env/etc/mecabrc")
   return t.parse(x)
 
 spark = SparkSession.builder \
