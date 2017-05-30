@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 
 alice_mask = np.array(Image.open(path.join("resources", "alice-mask.jpg")))
 
-FONT_PATH="/home/sense/.font/NotoSansCJKjp-Regular.otf"
+FONT_PATH = path.expanduser("~/.font/NotoSansCJKjp-Regular.otf")
 wc = WordCloud(font_path=FONT_PATH,
                background_color="white", max_words=2000, mask=alice_mask,
                stopwords=stopwords)
