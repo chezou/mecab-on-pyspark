@@ -17,3 +17,5 @@ Basic idea is from [this blog](http://henning.kropponline.de/2016/09/24/running-
 
 word_cloud.py shows another example with MeCab and wordcloud.
 
+- Make sure to be able to run mecab-test.py
+- Execute `!pip install wordcloud`

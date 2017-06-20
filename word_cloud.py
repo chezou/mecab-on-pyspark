@@ -1,6 +1,8 @@
 ## NLP example: Wordcloud of "alice in wonder land"
 # Basic code is taken from https://github.com/amueller/word_cloud/blob/master/examples/masked.py
 
+# First time, you should run `!pip install wordcloud`
+
 from pyspark.sql import SparkSession
 from wordcloud import WordCloud, STOPWORDS
 
