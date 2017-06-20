@@ -10,6 +10,7 @@ source activate mecab_env
 cd .conda/envs
 zip -r ../../mecab_env.zip mecab_env
 
+cd ~/
 
 wget https://noto-website.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
 unzip -d ~/.font NotoSansCJKjp-hinted.zip
